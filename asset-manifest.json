@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/manoaravindhan/agri-x/static/css/main.c219c1a8.chunk.css",
+    "main.js": "/manoaravindhan/agri-x/static/js/main.559f3841.chunk.js",
+    "main.js.map": "/manoaravindhan/agri-x/static/js/main.559f3841.chunk.js.map",
+    "runtime-main.js": "/manoaravindhan/agri-x/static/js/runtime-main.2fe4e974.js",
+    "runtime-main.js.map": "/manoaravindhan/agri-x/static/js/runtime-main.2fe4e974.js.map",
+    "static/js/2.16756b13.chunk.js": "/manoaravindhan/agri-x/static/js/2.16756b13.chunk.js",
+    "static/js/2.16756b13.chunk.js.map": "/manoaravindhan/agri-x/static/js/2.16756b13.chunk.js.map",
+    "index.html": "/manoaravindhan/agri-x/index.html",
+    "precache-manifest.427ada9e1084444da1b7e76569652612.js": "/manoaravindhan/agri-x/precache-manifest.427ada9e1084444da1b7e76569652612.js",
+    "service-worker.js": "/manoaravindhan/agri-x/service-worker.js",
+    "static/css/main.c219c1a8.chunk.css.map": "/manoaravindhan/agri-x/static/css/main.c219c1a8.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2fe4e974.js",
+    "static/js/2.16756b13.chunk.js",
+    "static/css/main.c219c1a8.chunk.css",
+    "static/js/main.559f3841.chunk.js"
+  ]
+}

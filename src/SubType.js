@@ -53,7 +53,7 @@ const SubType = ({ classes, mainType, handleChange }) => {
             type: 'Agri'
         },{
             id: 303,
-            type: 'water'
+            type: 'Water'
         }, {
             id: 304,
             type: 'forest'

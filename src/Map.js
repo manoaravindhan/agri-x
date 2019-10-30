@@ -50,19 +50,19 @@ const colorConf = {
     1: 'green',
     2: 'green',
     3: 'green',
-    4: 'red',
-    5: 'red',
-    6: 'red',
-    7: 'red',
-    8: 'blue',
-    9: 'blue',
-    10: 'blue',
-    11: 'blue'
+    4: 'blue',
+    5: 'blue',
+    6: 'blue',
+    7: 'blue',
+    8: 'red',
+    9: 'red',
+    10: 'red',
+    11: 'red'
   },
   3: {
     urban: 'grey',
     forest: 'green',
-    water: 'blue',
+    Water: 'blue',
     agri: 'deeporange',
     other: 'brown'
   }
@@ -182,13 +182,13 @@ class Map extends Component {
         crop = { ...crop, ...{ 8: true, 9: true, 10: true, 11: true } };
     }
     if(mainType === 3){
-      crop = {urban:false, agri:false, other: false, forest:false, water:false}
+      crop = {urban:false, agri:false, other: false, forest:false, Water:false}
       if(subType[301])
         crop.urban = true;
       if(subType[302])
         crop.agri = true;
         if(subType[303])
-        crop.water = true;
+        crop.Water = true;
       if(subType[304])
         crop.forest = true;
         if(subType[305])

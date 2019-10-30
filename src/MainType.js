@@ -30,6 +30,9 @@ const styles = theme => ({
     headText:{
         color:'white',
         margin: 1
+    },
+    active : {
+        backgroundColor: 'lightgray'
     }
 });
 
@@ -72,7 +75,7 @@ const MainType = ({ classes,handleChange }) => {
         <List className={classes.list} key={2}>
             {typeConf.map(value => {
                 return [
-                    <ListItem key={value.id} button onClick={handleToggle(value)}>
+                    <ListItem key={value.id} button onClick={handleToggle(value)} className={checked === value.id && classes.active}>
                         <ListItemIcon fontSize="large">
                             {value.icon}
                         </ListItemIcon>

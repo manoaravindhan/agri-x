@@ -8,7 +8,6 @@ import OlSourceOSM from "ol/source/OSM";
 import Zoom from 'ol/control/Zoom';
 import windowDimensions from 'react-window-dimensions';
 import PropType from 'prop-types';
-import './styles/map.scss';
 import { Fill, Stroke, Style } from 'ol/style';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
@@ -17,7 +16,7 @@ import { register } from 'ol/proj/proj4';
 import isEqual from 'lodash/isEqual';
 import geo from './static/clipped_poly.js';
 import { filterGeo } from './utils/filter';
-import { timeout } from "q";
+import './styles/map.scss';
 
 const colorConf = {
   1: {
@@ -186,7 +185,7 @@ class Map extends Component {
   render() {
     this.updateMap();
     return (
-      <div id="map" style={{ width: "100%", height: `${this.props.height * .85}px` }} key='0'></div>
+      <div id="map" style={{ width: "100%", height: `${this.props.height * .88}px` }} key='0'></div>
     );
   }
 }

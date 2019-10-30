@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
@@ -7,49 +7,11 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import cloneDeep from 'lodash/cloneDeep';
-import { red, blue, green, brown, grey, deepOrange } from '@material-ui/core/colors';
 
 const styles = theme => ({
     root: {
         paddingLeft: 25
-    },
-    red: {
-        color: red[600],
-        '&$checked': {
-            color: red[500],
-        },
-    },
-    blue: {
-        color: blue[300],
-        '&$checked': {
-            color: blue[500],
-        },
-    },
-    green: {
-        color: green[300],
-        '&$checked': {
-            color: green[500],
-        },
-    },
-    brown: {
-        color: brown[300],
-        '&$checked': {
-            color: brown[500],
-        },
-    },
-    grey: {
-        color: grey[300],
-        '&$checked': {
-            color: grey[500],
-        },
-    },
-    deepOrange: {
-        color: deepOrange[300],
-        '&$checked': {
-            color: deepOrange[500],
-        },
-    },
-    checked: {}
+    }
 });
 
 const SubType = ({ classes, mainType, handleChange }) => {

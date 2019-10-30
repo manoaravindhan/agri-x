@@ -19,19 +19,6 @@ import geo from './static/clipped_poly.js';
 import { filterGeo } from './utils/filter';
 import { timeout } from "q";
 
-// const colors = {
-// 1: 'purple',
-// 2: 'red',
-// 3: 'pink',
-// 4: 'indigo',
-// 5: 'blue',
-// 6: 'green',
-// 7: 'lime',
-// 8: 'orange',
-// 9: 'brown',
-// 10: 'grey',
-// 11: 'deeporange'
-// }
 const colorConf = {
   1: {
     1: 'brown',
@@ -63,7 +50,7 @@ const colorConf = {
     urban: 'grey',
     forest: 'green',
     Water: 'blue',
-    agri: 'deeporange',
+    agri: 'orange',
     other: 'brown'
   }
 }

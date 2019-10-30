@@ -7,11 +7,49 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import cloneDeep from 'lodash/cloneDeep';
+import { red, blue, green, brown, grey, deepOrange } from '@material-ui/core/colors';
 
 const styles = theme => ({
     root: {
         paddingLeft: 25
-    }
+    },
+    red: {
+        color: red[600],
+        '&$checked': {
+            color: red[500],
+        },
+    },
+    blue: {
+        color: blue[300],
+        '&$checked': {
+            color: blue[500],
+        },
+    },
+    green: {
+        color: green[300],
+        '&$checked': {
+            color: green[500],
+        },
+    },
+    brown: {
+        color: brown[300],
+        '&$checked': {
+            color: brown[500],
+        },
+    },
+    grey: {
+        color: grey[300],
+        '&$checked': {
+            color: grey[500],
+        },
+    },
+    deepOrange: {
+        color: deepOrange[300],
+        '&$checked': {
+            color: deepOrange[500],
+        },
+    },
+    checked: {}
 });
 
 const SubType = ({ classes, mainType, handleChange }) => {
@@ -30,36 +68,46 @@ const SubType = ({ classes, mainType, handleChange }) => {
     const typeConf = {
         1: [{
             id: 101,
-            type: 'Non-Rice'
+            type: 'Non-Rice',
+            color:'brown'
         }, {
             id: 102,
-            type: 'Rice'
+            type: 'Rice',
+            color:'green'
         }],
         2: [{
             id: 201,
-            type: 'High Yeild'
+            type: 'High Yeild',
+            color:'green'
         }, {
             id: 202,
-            type: 'Medium Yeild'
+            type: 'Medium Yeild',
+            color:'blue'
         }, {
             id: 203,
-            type: 'Crop Failure'
+            type: 'Crop Failure',
+            color:'red'
         }],
         3: [{
             id: 301,
-            type: 'Urban'
+            type: 'Urban',
+            color:'grey'
         }, {
             id: 302,
-            type: 'Agri'
+            type: 'Agri',
+            color:'orange'
         },{
             id: 303,
-            type: 'Water'
+            type: 'Water',
+            color:'blue'
         }, {
             id: 304,
-            type: 'forest'
+            type: 'forest',
+            color:'green'
         },{
             id: 305,
-            type: 'other'
+            type: 'other',
+            color:'brown'
         }]
     }
     const handle = id => e => {
@@ -86,7 +134,7 @@ const SubType = ({ classes, mainType, handleChange }) => {
                                     checked={sub[conf.id]}
                                     onChange={handle(conf.id)}
                                     value={conf.type}
-                                    color="primary"
+                                    style={{color:conf.color}}
                                 />
                             }
                             label={conf.type}

@@ -14,7 +14,7 @@ const styles = theme => ({
     }
 });
 
-const SubType = ({ classes, mainType }) => {
+const SubType = ({ classes, mainType, handleChange }) => {
     const [sub, setSub] = useState({
         101: true,
         102: true,
@@ -22,7 +22,10 @@ const SubType = ({ classes, mainType }) => {
         202: true,
         203: true,
         301: true,
-        302: true
+        302: true,
+        303: true,
+        304: true,
+        305: true
     });
     const typeConf = {
         1: [{
@@ -48,16 +51,26 @@ const SubType = ({ classes, mainType }) => {
         }, {
             id: 302,
             type: 'Agri'
+        },{
+            id: 303,
+            type: 'water'
+        }, {
+            id: 304,
+            type: 'forest'
+        },{
+            id: 305,
+            type: 'other'
         }]
     }
-    const handleChange = id => e => {
+    const handle = id => e => {
         let subz = cloneDeep(sub);
         subz[id] = e.target.checked;
         setSub(subz);
+        handleChange(id);
     }
     return [
-        <Divider />,
-        <Grid container className={classes.root}>
+        <Divider key={0} />,
+        <Grid container className={classes.root} key={1}>
             {typeConf[mainType] && <Grid item md={12}>
                 <Typography variant="h5">
                     Sub Types
@@ -71,7 +84,7 @@ const SubType = ({ classes, mainType }) => {
                             control={
                                 <Checkbox
                                     checked={sub[conf.id]}
-                                    onChange={handleChange(conf.id)}
+                                    onChange={handle(conf.id)}
                                     value={conf.type}
                                     color="primary"
                                 />

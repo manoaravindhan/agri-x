@@ -57,7 +57,7 @@ const MainType = ({ classes,handleChange }) => {
     };
 
     return [
-        <Card className={classes.header}>
+        <Card className={classes.header} key={0}>
             <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.greenAvatar}>
@@ -68,8 +68,8 @@ const MainType = ({ classes,handleChange }) => {
         subheader={<h6 className={classes.headText}>October 31, 2019</h6>}
       />
         </Card>,
-        <Divider variant="middle"/>,
-        <List className={classes.list}>
+        <Divider variant="middle" key={1}/>,
+        <List className={classes.list} key={2}>
             {typeConf.map(value => {
                 return [
                     <ListItem key={value.id} button onClick={handleToggle(value)}>
@@ -77,7 +77,7 @@ const MainType = ({ classes,handleChange }) => {
                             {value.icon}
                         </ListItemIcon>
                         <ListItemText primary={value.name} secondary={value.subText} />
-                        <ListItemSecondaryAction>
+                        {/* <ListItemSecondaryAction>
                             <Checkbox
                                 edge="start"
                                 onClick={handleToggle(value)}
@@ -85,7 +85,7 @@ const MainType = ({ classes,handleChange }) => {
                                 tabIndex={-1}
                                 disableRipple
                             />
-                        </ListItemSecondaryAction>
+                        </ListItemSecondaryAction> */}
                     </ListItem>,
                     <Divider variant="middle" key={`dvdr${value.id}`} />
                 ]

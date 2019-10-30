@@ -12,57 +12,84 @@ import './styles/map.scss';
 import { Fill, Stroke, Style } from 'ol/style';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
-import Feature from 'ol/Feature.js';
-import Circle from 'ol/geom/Circle.js';
 import Proj4 from 'proj4/lib';
 import { register } from 'ol/proj/proj4';
-import Popup from 'ol-popup';
+import isEqual from 'lodash/isEqual';
 import geo from './static/clipped_poly.js';
 import { filterGeo } from './utils/filter';
-import Draw from 'ol/interaction/Draw.js';
+import { timeout } from "q";
 
-const colors = {
-  1: 'purple',
-  2: 'red',
-  3: 'pink',
-  4: 'indigo',
-  5: 'blue',
-  6: 'green',
-  7: 'lime',
-  8: 'orange',
-  9: 'brown',
-  10: 'grey',
-  11: 'deeporange',
+// const colors = {
+// 1: 'purple',
+// 2: 'red',
+// 3: 'pink',
+// 4: 'indigo',
+// 5: 'blue',
+// 6: 'green',
+// 7: 'lime',
+// 8: 'orange',
+// 9: 'brown',
+// 10: 'grey',
+// 11: 'deeporange'
+// }
+const colorConf = {
+  1: {
+    1: 'brown',
+    2: 'green',
+    3: 'green',
+    4: 'green',
+    5: 'green',
+    6: 'green',
+    7: 'green',
+    8: 'green',
+    9: 'green',
+    10: 'green',
+    11: 'green'
+  },
+  2: {
+    1: 'green',
+    2: 'green',
+    3: 'green',
+    4: 'red',
+    5: 'red',
+    6: 'red',
+    7: 'red',
+    8: 'blue',
+    9: 'blue',
+    10: 'blue',
+    11: 'blue'
+  },
+  3: {
+    urban: 'grey',
+    forest: 'green',
+    water: 'blue',
+    agri: 'deeporange',
+    other: 'brown'
+  }
+}
+const getColors = (id, mainType) => {
+  return colorConf[mainType][id];
 }
 
-const styles = (id) => id ? new Style({
+const styles = (id, mainType) => new Style({
   stroke: new Stroke({
-    color: colors[id],
+    color: getColors(id, mainType),
     width: 1
   }),
   fill: new Fill({
-    color: colors[id]
-  })
-}) : new Style({
-  stroke: new Stroke({
-    color: 'blue',
-    width: 1
-  }),
-  fill: new Fill({
-    color: 'rgba(255, 255, 0, 0.1)'
+    color: getColors(id, mainType)
   })
 })
-const styleFunction = feature => styles(feature.values_.GWS_GEWASC);
+
 const geoJsonObject = geo;
-let draw;
-let popup;
+
 class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      center: [2912277.9643669114, 5908342.794719597],
-      zoom: 2,
-      initialView: true,
+      center:[635047.1775508502, 6897943.454034535],
+      zoom: 9,
+      initialView: false,
       showSubmit: false,
       crops: { 1: true, 2: true, 3: true, 4: true, 5: true, 6: true, 7: true, 8: true, 9: true, 10: true, 11: true }
     };
@@ -71,10 +98,16 @@ class Map extends Component {
     register(Proj4);
     let vectorSource;
     let vectorLayer;
-    vectorSource = new VectorSource({ wrapX: false });
+    vectorSource = new VectorSource({
+      features: (new GeoJSON({
+        dataProjection: 'EPSG:28992',
+        featureProjection: 'EPSG:3857'
+
+      })).readFeatures(geoJsonObject)
+    });
     vectorLayer = new VectorLayer({
       source: vectorSource,
-      style: styleFunction
+      style: this.styleFunction
     });
     this.olmap = new OlMap({
       target: null,
@@ -95,15 +128,19 @@ class Map extends Component {
       })
     });
   }
+  styleFunction = feature => {
+    let {mainType} = this.props;
+    let id = mainType === 3 ? feature.values_.Hoofdgroep : feature.values_.GWS_GEWASC;
+    return styles(id, mainType);
+  };
   updateLegends = crops => {
-    let filtered = filterGeo(crops);
+    let filtered = filterGeo(crops, this.props.mainType);
     let vectorSource = new VectorSource({
       features: (new GeoJSON({
         dataProjection: 'EPSG:28992',
         featureProjection: 'EPSG:3857'
       })).readFeatures(filtered)
     });
-    vectorSource.addFeature(new Feature(new Circle([5e6, 7e6], 1e6)));
     this.olmap.getLayers().array_[1].setSource(vectorSource);
   };
 
@@ -111,29 +148,7 @@ class Map extends Component {
     this.olmap.getView().setCenter(this.state.center);
     this.olmap.getView().setZoom(this.state.zoom);
   }
-  showResults = () => {
-    this.setState({
-      initialView: false
-    })
-  }
-  showPop = () => {
-    this.olmap.on('pointermove', (event) => {
-      if (event)
-        this.olmap.forEachFeatureAtPixel(event.pixel,
-          feature => {
-            const { values_ } = feature;
-            if (values_) {
-              popup.show(event.coordinate, `<div><p>GEWASC: ${values_.CAT_GEWASC}</p><p>GEOMETRIE: ${values_.GEOMETRIE_}</p><p>GRE_GEWAS: ${values_.GWS_GEWAS}</p></div>`);
-            }
-          },
-          {
-            layerFilter: (layer) => {
-              return (layer.type === new VectorLayer().type) ? true : false;
-            }, hitTolerance: 6
-          }
-        );
-    });
-  }
+
   componentDidMount() {
     var me = this;
     this.olmap.setTarget("map");
@@ -146,23 +161,40 @@ class Map extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     let center = this.olmap.getView().getCenter();
     let zoom = this.olmap.getView().getZoom();
-    let { initialView } = this.state;
-    if (center === nextState.center && zoom === nextState.zoom && initialView === nextState.initialView) return false;
+    if (center === nextState.center && zoom === nextState.zoom && this.props.mainType === nextProps.mainType && isEqual(this.props.subType, nextProps.mainType)) return false;
     return true;
   }
-  allowEdit = () => {
-
-  }
   componentDidUpdate() {
-    if (this.state.initialView) {
-      this.olmap && this.olmap.removeEventListener('pointermove');
-    } else {
-      this.updateLegends(this.state.crops);
-      popup = new Popup();
-      this.olmap.addOverlay(popup);
-      this.olmap.removeInteraction(draw);
-      this.showPop();
+    let crop = { 1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9: false, 10: false, 11: false };
+    let { mainType, subType } = this.props;
+    if (mainType === 1) {
+      if (subType[101])
+        crop[1] = true;
+      if (subType[102])
+        crop = { ...crop, ...{ 2: true, 3: true, 4: true, 5: true, 6: true, 7: true, 8: true, 9: true, 10: true, 11: true } };
     }
+    if (mainType === 2) {
+      if (subType[201])
+        crop = { ...crop, ...{ 1: true, 2: true, 3: true } };
+      if (subType[202])
+        crop = { ...crop, ...{ 6: true, 7: true, 4: true, 5: true } };
+      if (subType[203])
+        crop = { ...crop, ...{ 8: true, 9: true, 10: true, 11: true } };
+    }
+    if(mainType === 3){
+      crop = {urban:false, agri:false, other: false, forest:false, water:false}
+      if(subType[301])
+        crop.urban = true;
+      if(subType[302])
+        crop.agri = true;
+        if(subType[303])
+        crop.water = true;
+      if(subType[304])
+        crop.forest = true;
+        if(subType[305])
+        crop.other = true;
+    }
+    this.updateLegends(crop);
   }
   render() {
     this.updateMap();

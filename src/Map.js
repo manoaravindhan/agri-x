@@ -185,7 +185,7 @@ class Map extends Component {
   render() {
     this.updateMap();
     return (
-      <div id="map" style={{ width: "100%", height: `${this.props.height * .88}px` }} key='0'></div>
+      <div id="map" style={{ width: "100%", height: `${this.props.height * .86}px` }} key='0'></div>
     );
   }
 }

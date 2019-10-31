@@ -8,7 +8,6 @@ import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import { green } from '@material-ui/core/colors';
 
 const styles = theme => ({
@@ -21,20 +20,20 @@ const styles = theme => ({
         margin: 10,
         color: '#fff',
         backgroundColor: green[500],
-      },
-    header:{
+    },
+    header: {
         background: 'black'
     },
-    headText:{
-        color:'white',
+    headText: {
+        color: 'white',
         margin: 1
     },
-    active : {
+    active: {
         backgroundColor: 'lightgray'
     }
 });
 
-const MainType = ({ classes,handleChange }) => {
+const MainType = ({ classes, handleChange }) => {
     const [checked, setChecked] = useState(1);
     const typeConf = [{
         id: 1,
@@ -60,17 +59,17 @@ const MainType = ({ classes,handleChange }) => {
     return [
         <Card className={classes.header} key={0}>
             <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.greenAvatar}>
-            <AccountCircle/>
-          </Avatar>
-        }
-            title={<h3 className={classes.headText}>Agri X</h3>}
-        subheader={<h6 className={classes.headText}>October 31, 2019</h6>}
-      />
+                avatar={
+                    <Avatar aria-label="recipe" className={classes.greenAvatar}>
+                        <i class="material-icons">emoji_nature</i>
+                    </Avatar>
+                }
+                title={<h3 className={classes.headText}>Agri X</h3>}
+                subheader={<h6 className={classes.headText}>October 31, 2019</h6>}
+            />
         </Card>,
-        <Divider variant="middle" key={1}/>,
-        <List className={classes.list} key={2}>
+        <Divider variant="middle" key={1} />,
+        <List className={classes.list} key={2} dense>
             {typeConf.map(value => {
                 return [
                     <ListItem key={value.id} button onClick={handleToggle(value)} className={checked === value.id && classes.active}>

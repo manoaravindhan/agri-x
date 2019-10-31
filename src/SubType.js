@@ -80,10 +80,10 @@ const SubType = ({ classes, mainType, handleChange }) => {
     }
     return [
         <Divider key={0} />,
-        <Grid container className={classes.root} key={1}>
+        <Grid container className={classes.root} key={1} style={{background:'whitesmoke'}}>
             {typeConf[mainType] && <Grid item md={12}>
-                <Typography variant="h5">
-                    Sub Types
+                <Typography component="h5">
+                    Sub Categories
                 </Typography>
             </Grid>}
             {typeConf[mainType] && <Grid item md={12}>

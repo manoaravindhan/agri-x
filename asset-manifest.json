@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/agri-x/static/css/main.46a3cf6c.chunk.css",
-    "main.js": "/agri-x/static/js/main.4f165e67.chunk.js",
-    "main.js.map": "/agri-x/static/js/main.4f165e67.chunk.js.map",
+    "main.js": "/agri-x/static/js/main.c6617ffd.chunk.js",
+    "main.js.map": "/agri-x/static/js/main.c6617ffd.chunk.js.map",
     "runtime-main.js": "/agri-x/static/js/runtime-main.10bd3d98.js",
     "runtime-main.js.map": "/agri-x/static/js/runtime-main.10bd3d98.js.map",
-    "static/js/2.3bac5804.chunk.js": "/agri-x/static/js/2.3bac5804.chunk.js",
-    "static/js/2.3bac5804.chunk.js.map": "/agri-x/static/js/2.3bac5804.chunk.js.map",
+    "static/js/2.e2c295bb.chunk.js": "/agri-x/static/js/2.e2c295bb.chunk.js",
+    "static/js/2.e2c295bb.chunk.js.map": "/agri-x/static/js/2.e2c295bb.chunk.js.map",
     "index.html": "/agri-x/index.html",
-    "precache-manifest.df6d6aa1daacbc27dd96d2c787f9cbf4.js": "/agri-x/precache-manifest.df6d6aa1daacbc27dd96d2c787f9cbf4.js",
+    "precache-manifest.85f6fa67a9da1419035fb01b2ef26169.js": "/agri-x/precache-manifest.85f6fa67a9da1419035fb01b2ef26169.js",
     "service-worker.js": "/agri-x/service-worker.js",
     "static/css/main.46a3cf6c.chunk.css.map": "/agri-x/static/css/main.46a3cf6c.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.10bd3d98.js",
-    "static/js/2.3bac5804.chunk.js",
+    "static/js/2.e2c295bb.chunk.js",
     "static/css/main.46a3cf6c.chunk.css",
-    "static/js/main.4f165e67.chunk.js"
+    "static/js/main.c6617ffd.chunk.js"
   ]
 }
